@@ -178,5 +178,7 @@ class ET_Builder_VideoEmbed extends ET_Builder_Module {
 	}
 }
 
-// DiviExtension base class automatically discovers and loads this module
-// when it lives at modules/VideoEmbed/VideoEmbed.php.
+// ET_Builder_Module::__construct() registers the module with Divi when the
+// class is instantiated. DiviExtension includes this file on et_builder_ready,
+// so the instantiation below happens at the correct point in Divi's boot order.
+new ET_Builder_VideoEmbed();
