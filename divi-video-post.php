@@ -7,7 +7,7 @@
  * Author:      Dom Kirby
  * Text Domain: divi-video-post
  * Requires at least: 6.0
- * Requires PHP: 8.0
+ * Requires PHP: 8.0 
  */
 
 defined( 'ABSPATH' ) || exit;
