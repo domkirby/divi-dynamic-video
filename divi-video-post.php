@@ -25,3 +25,9 @@ new DVP_Video_Post_CPT();
 add_action( 'divi_extensions_init', function () {
 	require_once DVP_PLUGIN_DIR . 'includes/class-divi-extension.php';
 } );
+
+// GitHub Releases updater (admin only — no need to run on the frontend).
+if ( is_admin() ) {
+	require_once DVP_PLUGIN_DIR . 'includes/class-github-updater.php';
+	new DVP_GitHub_Updater( DVP_PLUGIN_FILE, 'domkirby', 'divi-dynamic-video' );
+}

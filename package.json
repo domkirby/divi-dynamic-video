@@ -1,0 +1,13 @@
+{
+  "name": "divi-video-post",
+  "version": "1.0.0",
+  "description": "Divi Dynamic Video — Video Post CPT + Divi Builder Video Embed module",
+  "private": true,
+  "scripts": {
+    "start": "divi-scripts start",
+    "build": "divi-scripts build"
+  },
+  "devDependencies": {
+    "@elegantthemes/scripts": "^1.0.0"
+  }
+}

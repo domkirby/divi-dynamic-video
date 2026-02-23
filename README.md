@@ -177,6 +177,80 @@ yarn build
 
 ---
 
+## Releases & Automatic Updates
+
+This plugin uses **GitHub Releases** for distribution and automatic updates. It does not appear on the WordPress.org plugin directory. Installed sites check for updates via the GitHub API and are notified through the standard WordPress **Plugins → Updates** screen.
+
+### How the updater works
+
+1. WordPress periodically checks for plugin updates by querying the `update_plugins` transient.
+2. The updater (`includes/class-github-updater.php`) hooks into that check and calls `https://api.github.com/repos/domkirby/divi-dynamic-video/releases/latest`.
+3. The response is cached for **12 hours** to avoid hitting the GitHub API rate limit.
+4. If the release's tag version is greater than the installed version, WordPress shows the standard "update available" notice.
+5. Clicking **Update Now** downloads the ZIP and runs the normal WordPress plugin installer.
+
+Draft and pre-release releases are **ignored** — only full releases trigger an update notification.
+
+### Creating a release (maintainer checklist)
+
+1. **Bump the version** in two places:
+   - `divi-video-post.php` — the `Version:` plugin header and the `DVP_VERSION` constant
+   - `package.json` — the `version` field
+
+2. **Build compiled assets:**
+   ```bash
+   yarn build
+   git add build/divi-video-post.min.js
+   ```
+
+3. **Commit and tag:**
+   ```bash
+   git add divi-video-post.php package.json
+   git commit -m "Release v1.x.x"
+   git tag v1.x.x
+   git push origin main --tags
+   ```
+
+4. **Create the GitHub Release:**
+   - Go to **Releases → Draft a new release** on GitHub.
+   - Select the tag you just pushed.
+   - Write release notes in the body (Markdown supported — displayed in the WordPress update popup).
+   - **Attach a release asset** named exactly `divi-video-post.zip`. This ZIP must contain a single top-level directory named `divi-video-post/` so WordPress installs the plugin into the correct location.
+   - Publish the release (do **not** mark it as a pre-release).
+
+5. **Verify** by visiting **Dashboard → Updates** on an installed site; the new version should appear within 12 hours, or immediately after clicking **Check Again**.
+
+### Release asset ZIP structure
+
+```
+divi-video-post.zip
+└── divi-video-post/
+    ├── divi-video-post.php
+    ├── includes/
+    ├── modules/
+    ├── assets/
+    └── build/
+```
+
+If no `divi-video-post.zip` asset is attached, the updater falls back to GitHub's auto-generated source ZIP (`zipball_url`). This still works, but the extracted directory will have a temporary name that the updater renames automatically during post-install.
+
+### Flushing the update cache
+
+To force WordPress to re-check for updates immediately (e.g., during testing), call:
+
+```php
+DVP_GitHub_Updater::flush_cache();
+```
+
+Or from WP-CLI:
+
+```bash
+wp eval "DVP_GitHub_Updater::flush_cache();"
+wp plugin list --update=available
+```
+
+---
+
 ## Security
 
 - All video URLs are escaped with `esc_url()` before output.
