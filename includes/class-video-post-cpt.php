@@ -13,6 +13,29 @@ class DVP_Video_Post_CPT {
 		add_action( 'init', [ $this, 'register_meta' ] );
 		add_action( 'add_meta_boxes', [ $this, 'add_meta_box' ] );
 		add_action( 'save_post_video_post', [ $this, 'save_meta_box' ] );
+		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_admin_assets' ] );
+	}
+
+	public function enqueue_admin_assets( string $hook ): void {
+		// Only load on Video Post add/edit screens.
+		if ( ! in_array( $hook, [ 'post.php', 'post-new.php' ], true ) ) {
+			return;
+		}
+
+		$screen = get_current_screen();
+		if ( ! $screen || 'video_post' !== $screen->post_type ) {
+			return;
+		}
+
+		wp_enqueue_style(
+			'dvp-admin-meta-box',
+			DVP_PLUGIN_URL . 'assets/admin/meta-box.css',
+			[],
+			DVP_VERSION
+		);
+
+		// Required for wp.media() in the meta box JS.
+		wp_enqueue_media();
 	}
 
 	public function register_post_type(): void {
