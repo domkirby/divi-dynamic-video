@@ -1,0 +1,32 @@
+/* Admin meta box styles for Divi Video Post */
+
+.dvp-meta-box p {
+	margin-bottom: 1em;
+}
+
+.dvp-meta-box label {
+	display: block;
+	margin-bottom: 4px;
+}
+
+.dvp-meta-box input[type="url"],
+.dvp-meta-box textarea {
+	width: 100%;
+	box-sizing: border-box;
+}
+
+#dvp-thumbnail-preview {
+	margin: 8px 0;
+}
+
+#dvp-thumbnail-preview img {
+	max-width: 200px;
+	height: auto;
+	display: block;
+	border: 1px solid #ddd;
+	border-radius: 3px;
+}
+
+#dvp-remove-thumbnail {
+	margin-left: 6px;
+}
