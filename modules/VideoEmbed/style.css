@@ -1,0 +1,43 @@
+/* VideoEmbed module frontend styles */
+
+.dvp-video-wrapper {
+	position: relative;
+	width: 100%;
+	overflow: hidden;
+	background: #000;
+	background-size: cover;
+	background-position: center center;
+	background-repeat: no-repeat;
+}
+
+/* Aspect ratio variants using the padding-bottom trick */
+.dvp-ratio-16x9 {
+	padding-bottom: 56.25%; /* 9/16 = 0.5625 */
+}
+
+.dvp-ratio-4x3 {
+	padding-bottom: 75%; /* 3/4 = 0.75 */
+}
+
+.dvp-ratio-1x1 {
+	padding-bottom: 100%;
+}
+
+.dvp-video-wrapper iframe {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	border: 0;
+}
+
+/* Empty/no-video placeholder */
+.dvp-no-video {
+	display: none;
+}
+
+/* Builder placeholder */
+.dvp-builder-placeholder {
+	min-height: 180px;
+}
