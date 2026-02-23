@@ -1,10 +1,10 @@
 <?php
 /**
  * Plugin Name: Divi Dynamic Video
- * Plugin URI:  https://example.com/divi-dynamic-video
+ * Plugin URI:  https://github.com/domkirby/divi-dynamic-video
  * Description: Registers a Video Post custom post type and a Divi Builder Video Embed module with dynamic and manual URL modes.
  * Version:     1.0.0
- * Author:      Your Name
+ * Author:      Dom Kirby
  * Text Domain: divi-video-post
  * Requires at least: 6.0
  * Requires PHP: 8.0
